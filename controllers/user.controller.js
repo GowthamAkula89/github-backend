@@ -45,9 +45,18 @@ const addUser = catchAsync(async (req, res) => {
     }else{
         res.status(httpStatus.BAD_REQUEST).send('User already created')
     }
-    
 });
-
+const updateUser = catchAsync(async (req, res) => {
+    const { username } = req.params;
+    const updatedFields = req.body;
+    try {
+        const updatedUser = await userService.updateUser(username, updatedFields);
+        res.send(updatedUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 const deleteUser = catchAsync(async (req, res) =>{
     const { username } = req.params;
     const user = await userService.deleteUser(username);
@@ -58,5 +67,6 @@ module.exports ={
     getUsers,
     addUser,
     deleteUser,
-    getUserByUsername
+    getUserByUsername,
+    updateUser
 }

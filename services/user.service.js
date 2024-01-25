@@ -58,6 +58,19 @@ const addUsertoDB = async (githubUser,mutuallyfriends) =>{
      }
 }
 
+
+const updateUser = async (username, updatedFields) => {
+  try {
+      const user = await User.findOneAndUpdate({ username }, updatedFields, { new: true });
+      if (!user) {
+          throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+      }
+      return user;
+  } catch (e) {
+      console.log(e);
+      throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "User update failed");
+  }
+};
 const deleteUser= async(user_name)=>{
   try {
     const deletedUser = await User.findOneAndDelete({ username:user_name });
@@ -74,6 +87,7 @@ module.exports={
     getUser,
     getUserByUsername,
     addUsertoDB,
-    deleteUser
+    deleteUser,
+    updateUser
 
 }

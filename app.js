@@ -5,7 +5,7 @@ const httpStatus=require("http-status");
 const helmet=require("helmet");
 const passport=require("passport");
 const ApiError = require("./utils/ApiError");
-const routes=require("./routes")
+const routes=require("./routes");
 const app=express();
 //Helmet is a middleware that helps secure your Express.js applications by setting various HTTP headers.
 app.use(helmet());
